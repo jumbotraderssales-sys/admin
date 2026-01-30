@@ -1,0 +1,37 @@
+services:
+  # Frontend Service
+  - type: static
+    name: paper2real-frontend
+    env: static
+    buildCommand: ""
+    staticPublishPath: ./frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  # Backend Service
+  - type: web
+    name: paper2real-backend
+    env: node
+    rootDirectory: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: NODE_ENV
+        value: production
+
+  # Admin Service
+  - type: web
+    name: paper2real-admin
+    env: node
+    rootDirectory: admin-panel
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3002
+      - key: NODE_ENV
+        value: production
